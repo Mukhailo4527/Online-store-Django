@@ -1,0 +1,15 @@
+<h1>Реєстрація</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зареєструватися</button>
+</form>
+{% if errors %}
+<ul style="color:red">
+    {% for field, errs in errors.items %}
+        {% for err in errs %}
+            <li>{{ field }}: {{ err }}</li>
+        {% endfor %}
+    {% endfor %}
+</ul>
+{% endif %}

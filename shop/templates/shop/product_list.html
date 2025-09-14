@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Каталог товарів</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <h1>Привіт, {{ user.name }}!</h1>
+    <a href="/users/logout/">Вийти</a>
+{% else %}
+    <h1>Привіт, гість!</h1>
+    <a href="users/login/">Увійти</a> або
+    <a href="users/register/">Зареєструватися</a>
+{% endif %}
+    <h1>Каталог товарів</h1>
+    <h3>Товари</h3>
+    <ul>
+        {% for product in products %}
+            <li>
+                <ul>{{ product.category }}</ul>
+                <ul><a href="{% url 'shop:product_detail' product.pk %}">
+                    <strong>{{ product.name }}</strong>
+                </a></ul>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="150">
+                <ul>– {{ product.price }} грн</ul>
+                <ul>{{ product.description|truncatewords:15 }}</ul>
+            </li>
+        {% empty %}
+            <li>Товарів поки що немає.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
